@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Asset List1";
+}
+
+<div class="text-center">
+    <h1 class="display-4"> Document and Material Management System  </h1>
+        <h2 class="display-5"> DMMS </h2>
+<img  src="~/images/AssetPic2.jpg" alt="Assets Picture" width="800" height="400">
+</div>

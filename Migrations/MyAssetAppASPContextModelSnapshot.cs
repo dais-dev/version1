@@ -15,7 +15,7 @@ namespace MyAssetAppASP.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
 
             modelBuilder.Entity("MyAssetAppASP.Models.Asset", b =>
                 {
@@ -56,6 +56,39 @@ namespace MyAssetAppASP.Migrations
                     b.HasKey("TagId");
 
                     b.ToTable("Asset");
+                });
+
+            modelBuilder.Entity("MyAssetAppASP.Models.Login", b =>
+                {
+                    b.Property<int>("userId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("userId");
+
+                    b.ToTable("Login");
+                });
+
+            modelBuilder.Entity("MyAssetAppASP.Models.User", b =>
+                {
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserName");
+
+                    b.ToTable("User");
                 });
 #pragma warning restore 612, 618
         }

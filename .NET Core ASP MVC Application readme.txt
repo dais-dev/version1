@@ -1,0 +1,99 @@
+.NE Core MVC Application
+
+
+dotnet tool uninstall --global dotnet-aspnet-codegenerator
+dotnet tool install --global dotnet-aspnet-codegenerator
+dotnet tool uninstall --global dotnet-ef
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SQLite
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+SQLite: 
+
+
+
+
+from App dir:
+
+dotnet build
+dotnet publish
+ 
+1. dotnet ef migrations add InitialCreate
+2. dotnet ef database update
+
+
+3. copied db file into publish dir
+
+from publish dir:
+dotnet <app>.dll
+
+
+-----
+add authentication
+----------
+
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add package Microsoft.Extensions.DependencyInjection
+dotnet add package Microsoft.AspNetCore.Authentication.Cookies
+
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+
+
+---
+
+dotnet tool install -g dotnet-aspnet-codegenerator
+
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Identity.UI
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer  **** Using SqlLite 
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+
+
+
+dotnet aspnet-codegenerator identity -h
+
+dotnet aspnet-codegenerator identity --useDefaultUI
+dotnet aspnet-codegenerator identity --useDefaultUI --useSQLiteQLite
+
+dotnet ef migrations add CreateIdentitySchema1 --context MyAssetAppASPContext
+
+dotnet ef database update --context MyAssetAppASPContext
+
+
+--
+sign in
+
+dotnet add package Microsoft.Identity.Web.UI
+
+
+
+---
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+
+
+
+***************************
+
+dotnet new mvc -o MvcMovie
+code -r MvcMovie
+
+
+dotnet dev-certs https --trust
+  /*(trust dev cert)
+
+
+----
+Add controller
+The controller handles and responds to user input and interaction.
+
+
+
+

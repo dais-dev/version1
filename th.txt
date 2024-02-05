@@ -1,0 +1,197 @@
+            <th>
+                @Html.DisplayNameFor(model => model.User![0].UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User![0].Password)
+            </th>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.User!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+
+
+
+
+    </tbody>
+</table>
+
+
+
+
+
+
+
+-----
+Account controller.cs Index 
+
+public async Task<IActionResult> Index(string AssetPlantName, string searchString)
+
+ {
+            if (_context.User == null)
+            {
+                return Problem("Entity set 'MyAssetAppASPContext.User'  is null.");
+            }
+        // Use LINQ to get list of genres.
+            IQueryable<string> PlantNameQuery = from m in _context.User 
+                                    orderby m.UserName
+                                    select m.Password;
+
+            var users = from m in _context.User
+                select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.UserName!.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(AssetPlantName))
+            {
+                users = users.Where(x => x.UserName == AssetPlantName);
+             }
+
+            var AssetPlantNameVM = new User 
+             {
+                UserName = AssetPlantName,
+                Password = searchString
+            };
+
+
+            return View(AssetPlantNameVM);
+
+}
+
+
+
+
+
+
+
+
+
+public async Task<IActionResult> SignIn(User model)
+{
+    if (ModelState.IsValid)
+    {
+         var User1 = from m in _context.User select m;
+         User1 = User1.Where(s => s.UserName.Contains(model.UserName));
+         if (User1.Count() != 0)
+         {
+             if (User1.First().Password == model.Password)
+             {
+                  return RedirectToAction("Success");
+             }
+         }
+}
+
+
+
+-----------
+index.cshtml
+
+    <select asp-for="UserName" asp-items="Model.UserName">
+            <option value="">All</option>
+        </select>
+
+
+
+           <td>
+                <a asp-action="Edit" asp-route-id="@item.TagId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TagId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TagId">Delete</a>
+            </td>
+
+
+
+
+
+
+
+
+
+---------
+signin.cshtml
+
+@foreach (var item in Model.Users!) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+ 
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TagId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TagId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TagId">Delete</a>
+            </td>
+        </tr>
+}
+
+
+
+------------
+
+signIn.cshtml
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SignIn" asp-controller="Account">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="SignIn" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+ </div>    
+
+
+
+
+
+
+
+
+
+
+account controller
+
+
+        {
+        ViewData["Message"] = "Hello " ;
+        ViewData["NumTimes"] =  3;
+        return View();
+             
+            return RedirectToAction("Fail");
+        }

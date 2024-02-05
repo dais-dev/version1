@@ -15,5 +15,7 @@ namespace MyAssetAppASP.Data
         }
 
         public DbSet<MyAssetAppASP.Models.Asset> Asset { get; set; } = default!;
+        public DbSet<MyAssetAppASP.Models.User> User {get; set; }
+        public DbSet<MyAssetAppASP.Models.Login> Login {get; set; }
     }
 }
